@@ -1,4 +1,4 @@
-const socket = io('/');
+const socket = io();
 socket.on('connect', ()=>{
     result.innerHTML = `connecté avec ID: ${socket.id}`
 })
