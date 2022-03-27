@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
   });
 });
 
-const portAPP = process.env.PORT || 3600;
+const portAPP = process.env.PORT || 3500;
 
 const start = async () => {
   try {
