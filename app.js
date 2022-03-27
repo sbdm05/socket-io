@@ -1,8 +1,8 @@
 const express = require('express');
 const { instrument } = require('@socket.io/admin-ui');
 require('dotenv').config();
-const socketURL = 3500
-const io = require('socket.io')(socketURL, {
+const PORT = process.env.PORT || 3000
+const io = require('socket.io')(PORT, {
   cors: {
     origin: ['http://localhost:5500'],
   },
