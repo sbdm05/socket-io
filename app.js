@@ -1,19 +1,28 @@
 const express = require('express');
+const path = require('path');
 const { instrument } = require('@socket.io/admin-ui');
 require('dotenv').config();
+const app = express();
+
 const PORT = process.env.PORT || 3500
-const io = require('socket.io')(PORT, {
+
+const socketPORT = process.env.PORT || 3700
+const io = require('socket.io')(socketPORT, {
   cors: {
-    origin: ['https://socket-io-demo-tchat.herokuapp.com'],
+    origin: [PORT],
   },
 });
 
-const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(express.static('./formulaire'));
+app.use(express.static('./public'));
+
+app.get('/', (req,res)=>{
+    res.sendFile(path.resolve(__dirname, './public/index.html'))
+})
+
 
 io.on('connection', (socket) => {
   console.log(socket.id);
@@ -31,11 +40,11 @@ io.on('connection', (socket) => {
   });
 });
 
-const portAPP = process.env.PORT || 3500;
+
 
 const start = async () => {
   try {
-    app.listen(portAPP, () => console.log('app listening'));
+    app.listen(PORT, () => console.log('app listening'));
   } catch (error) {
     console.log(error);
   }
