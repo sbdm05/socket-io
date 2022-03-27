@@ -4,7 +4,7 @@ require('dotenv').config();
 const PORT = process.env.PORT || 3500
 const io = require('socket.io')(PORT, {
   cors: {
-    origin: ['https://socket-io-demo-tchat.herokuapp.com/'],
+    origin: ['https://socket-io-demo-tchat.herokuapp.com'],
   },
 });
 
