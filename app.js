@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//app.use(express.static('./formulaire'));
+app.use(express.static('./formulaire'));
 
 io.on('connection', (socket) => {
   console.log(socket.id);
