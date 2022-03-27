@@ -1,10 +1,10 @@
 const express = require('express');
 const { instrument } = require('@socket.io/admin-ui');
 require('dotenv').config();
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3500
 const io = require('socket.io')(PORT, {
   cors: {
-    origin: ['http://localhost:5500'],
+    origin: ['https://socket-io-demo-tchat.herokuapp.com/'],
   },
 });
 
