@@ -31,4 +31,16 @@ io.on('connection', (socket) => {
   });
 });
 
+const portAPP = process.env.PORT || 3600;
+
+const start = async () => {
+  try {
+    app.listen(portAPP, () => console.log('app listening'));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();
+
 instrument(io, {auth:false})
