@@ -3,17 +3,22 @@ const path = require('path');
 const { instrument } = require('@socket.io/admin-ui');
 require('dotenv').config();
 const app = express();
+const INDEX = '/public/index.html';
 
 const PORT = process.env.PORT || 3500
 
 // const socketPORT = process.env.PORT || 3700
 
-const io = require('socket.io')(PORT, {
-  cors: {
-    origin: [PORT],
-  },
-});
+// const io = require('socket.io')(PORT, {
+//   cors: {
+//     origin: [PORT],
+//   },
+// });
+const server = express()
+  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
+const io = require('socket.io')(server);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -43,14 +48,6 @@ io.on('connection', (socket) => {
 
 
 
-const start = async () => {
-  try {
-    app.listen(PORT, () => console.log('app listening'));
-  } catch (error) {
-    console.log(error);
-  }
-};
 
-start();
 
 instrument(io, {auth:false})
