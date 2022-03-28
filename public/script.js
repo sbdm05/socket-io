@@ -1,7 +1,7 @@
-const socket = io('http://localhost:3500');
-socket.on('connect', ()=>{
-    result.innerHTML = `connecté avec ID: ${socket.id}`
-})
+const socket = io();
+socket.on('connect', () => {
+  result.innerHTML = `connecté avec ID: ${socket.id}`;
+});
 
 // socket.emit('custom', "texte")
 
@@ -10,7 +10,7 @@ const result = document.querySelector('.result');
 
 // submit form
 const btn = document.querySelector('.submit-btn');
-const btnJoin = document.querySelector('.join-btn')
+const btnJoin = document.querySelector('.join-btn');
 const input = document.querySelector('.form-input');
 const inputRoom = document.querySelector('#room');
 const formAlert = document.querySelector('.form-alert');
@@ -22,7 +22,7 @@ socket.on('received-message', (message) => {
 
 btn.addEventListener('click', (e) => {
   e.preventDefault();
-  const message = input.value; 
+  const message = input.value;
   const roomValue = room.value;
   //result.innerHTML += `<div>${input.value}</div>`;
   socket.emit('message', input.value, roomValue);
@@ -30,12 +30,11 @@ btn.addEventListener('click', (e) => {
   room.value = '';
 });
 
-btnJoin.addEventListener('click', (e)=>{
-    e.preventDefault()
-    const roomValue = room.value;
-    // notifier le serveur
-    socket.emit('join-room', roomValue, message=>{
-        result.innerHTML += `<div>${message}</div>`
-    })
-})
-
+btnJoin.addEventListener('click', (e) => {
+  e.preventDefault();
+  const roomValue = room.value;
+  // notifier le serveur
+  socket.emit('join-room', roomValue, (message) => {
+    result.innerHTML += `<div>${message}</div>`;
+  });
+});
