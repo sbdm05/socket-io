@@ -1,4 +1,6 @@
-const socket = io('/');
+// url du serveur const socket = io('http://localhost:3500');
+const socket = io();
+
 socket.on('connect', () => {
   result.innerHTML = `connecté avec ID: ${socket.id}`;
 });

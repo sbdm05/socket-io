@@ -1,34 +1,22 @@
 const express = require('express');
-const path = require('path');
-const { instrument } = require('@socket.io/admin-ui');
-require('dotenv').config();
 const app = express();
-const INDEX = '/public/index.html';
-
-const PORT = process.env.PORT || 3500
-
-// const socketPORT = process.env.PORT || 3700
-
+const cors = require('cors')
+const { instrument } = require('@socket.io/admin-ui');
+const { Server } = require("socket.io");
+const http = require('http');
+const server = http.createServer(app);
+const io = new Server(server);
+const PORT = process.env.port || 3000
 // const io = require('socket.io')(PORT, {
 //   cors: {
-//     origin: [PORT],
+//     origin: ['http://localhost:3000/'],
 //   },
 // });
-const server = express()
-  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-const io = require('socket.io')(server);
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
+app.use(cors())
 app.use(express.static('./public'));
-
-app.get('/', (req,res)=>{
-    res.sendFile(path.resolve(__dirname, './public/index.html'))
-})
-
 
 io.on('connection', (socket) => {
   console.log(socket.id);
@@ -46,8 +34,17 @@ io.on('connection', (socket) => {
   });
 });
 
+// const port = process.env.PORT || 3700;
 
+const start = async () => {
+  try {
+    //await connectDB(process.env.MONGO_URI);
+    server.listen(PORT, () => console.log('app listening'));
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-
+start();
 
 instrument(io, {auth:false})
