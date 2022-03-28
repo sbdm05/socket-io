@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io('http://localhost:3500');
 socket.on('connect', ()=>{
     result.innerHTML = `connecté avec ID: ${socket.id}`
 })

@@ -6,8 +6,9 @@ const app = express();
 
 const PORT = process.env.PORT || 3500
 
-const socketPORT = process.env.PORT || 3700
-const io = require('socket.io')(socketPORT, {
+// const socketPORT = process.env.PORT || 3700
+
+const io = require('socket.io')(PORT, {
   cors: {
     origin: [PORT],
   },
