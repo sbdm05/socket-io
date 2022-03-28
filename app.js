@@ -19,7 +19,7 @@ app.use(cors())
 app.use(express.static('./public'));
 
 io.on('connection', (socket) => {
-  console.log(socket.id);
+  console.log(socket.id)
   socket.on('message', (string, room) => {
     if (room === '') {
       socket.broadcast.emit('received-message', string);
